@@ -94,40 +94,40 @@ document.addEventListener("DOMContentLoaded", function () {
         return input_arr;
     };
 
-    var quickSort = function (input_arr) {
-        function partition(input_arr, left, right) {
-            var pivot = right;
-            var i = left;
+    // var quickSort = function (input_arr) {
+    //     function partition(input_arr, left, right) {
+    //         var pivot = right;
+    //         var i = left;
 
-            for (var j = left; j < right; j++) {
-                if (input_arr[j] <= input_arr[pivot]) {
-                    swp(i, j, input_arr);
-                    i++;
-                }
-            }
-            swp(i, j, input_arr);
-            return i;
-        }
+    //         for (var j = left; j < right; j++) {
+    //             if (input_arr[j] <= input_arr[pivot]) {
+    //                 swp(i, j, input_arr);
+    //                 i++;
+    //             }
+    //         }
+    //         swp(i, j, input_arr);
+    //         return i;
+    //     }
 
-        function quickRecur(input_arr, left, right) {
-            left = left || 0;
-            right = right || input_arr.length - 1;
+    //     function quickRecur(input_arr, left, right) {
+    //         left = left || 0;
+    //         right = right || input_arr.length - 1;
 
-            var pivot = partition(input_arr, left, right);
+    //         var pivot = partition(input_arr, left, right);
 
-            if (left < pivot - 1) {
-                quickRecur(input_arr, left, pivot - 1);
-            }
+    //         if (left < pivot - 1) {
+    //             quickRecur(input_arr, left, pivot - 1);
+    //         }
 
-            if (right > pivot) {
-                quickRecur(input_arr, pivot - 1, right);
-            }
+    //         if (right > pivot) {
+    //             quickRecur(input_arr, pivot - 1, right);
+    //         }
 
-            return array;
-        }
+    //         return array;
+    //     }
 
-        return quickRecur(input_arr, 0, input_arr.length - 1);
-    };
+    //     return quickRecur(input_arr, 0, input_arr.length - 1);
+    // };
 
     var mergeSort = function (input_arr) {
         readyState = 0;
@@ -286,6 +286,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     resetGraph(unsort_arr);
 
-    console.log(quickSort(unsort_arr));
+    // console.log(quickSort(unsort_arr));
 });
 // parseInt
