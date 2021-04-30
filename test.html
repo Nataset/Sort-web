@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script>
+            const quickSort = (originalList) => {
+                const list = [...originalList];
+
+                if (list.length < 2) {
+                    return list;
+                }
+
+                const pivot = list[0];
+
+                const smaller = list.filter((item) => item < pivot);
+                const bigger = list.filter((item) => item > pivot);
+
+                return [...quickSort(smaller), pivot, ...quickSort(bigger)];
+            };
+
+            const a = [1, 6, 3, 4, 5, 1, 0, 4, 8];
+
+            console.log(quickSort(a));
+
+            /* Output:
+Unsorted array: 
+[ 83, 52, 89, 42, 6, 87, 50, 17, 34, 96 ]
+Sorted array: 
+[ 6, 17, 34, 42, 50, 52, 83, 87, 89, 96 ]
+[Finished in 0.1s] */
+        </script>
+    </head>
+    <body></body>
+</html>

@@ -4,7 +4,7 @@
 }
 
 html {
-    background: #161620;
+    background: #181a1b;
     height: 100%;
 }
 
@@ -15,6 +15,7 @@ html {
 .header {
     background-color: #20222a;
     overflow: hidden;
+    border-bottom: 1px solid #ebebeb;
 }
 
 .menu-list {
