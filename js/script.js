@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
         15,
     ];
     var startSort;
-    var startState = 0;
+    var readyState = 1;
 
     var setGraphValue = function (i, input_arr) {
         var graphName = ".graph" + (parseInt(i) + 1);
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var setGraphColor = function (i, color) {
         var graphName = ".graph" + (parseInt(i) + 1);
-        document.querySelector(graphName).style.backgroundColor = color;
+        document.querySelector(graphName).style.background = color;
     };
 
     var resetGraph = function (input_arr) {
@@ -42,12 +42,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var delay = function () {
         return new Promise(function (resolve) {
-            setTimeout(resolve, 500);
+            setTimeout(resolve, 100);
         });
     };
 
+    var swap = async function (i, j, input_arr) {
+        var tmp = input_arr[i];
+        setGraphColor(j, "red");
+        await delay();
+        input_arr[i] = input_arr[j];
+        setGraphValue(i, input_arr);
+        setGraphColor(j, "blue");
+        setGraphColor(i, "red");
+        input_arr[j] = tmp;
+        setGraphValue(j, input_arr);
+        await delay();
+        setGraphColor(i, "blue");
+    };
+
     var selectionSort = async function (input_arr) {
-        startState = 1;
+        readyState = 0;
         for (var i = 0; i < input_arr.length; i++) {
             var min = i;
             for (var j = i + 1; j < input_arr.length; j++) {
@@ -57,36 +71,47 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             if (min != i) {
-                var tmp = input_arr[i];
-                setGraphColor(min, "red");
-                await delay();
-                input_arr[i] = input_arr[min];
-                setGraphValue(i, input_arr);
-                setGraphColor(min, "blue");
-                setGraphColor(i, "red");
-                input_arr[min] = tmp;
-                setGraphValue(min, input_arr);
-                await delay();
-                setGraphColor(i, "blue");
+                await swap(i, min, input_arr);
             }
         }
-        startState = 0;
+        readyState = 1;
+        return input_arr;
+    };
+
+    var bubbleSort = async function (input_arr) {
+        readyState = 0;
+        var check;
+        do {
+            check = 0;
+            for (var i = 0; i < input_arr.length - 1; i++) {
+                if (input_arr[i] > input_arr[i + 1]) {
+                    await swap(i, i + 1, input_arr);
+                    check = 1;
+                }
+            }
+        } while (check);
+        readyState = 1;
         return input_arr;
     };
 
     document.querySelector("#start").onclick = function (event) {
-        startSort(unsort_arr.slice(0));
-        console.log("TEST");
+        if (readyState) startSort(unsort_arr.slice(0));
     };
 
     document.querySelector("#reset").onclick = function (event) {
-        if (!startState) resetGraph(unsort_arr);
+        if (readyState) resetGraph(unsort_arr.slice(0));
     };
 
     document.querySelector("#selectionSort").onclick = function (event) {
         startSort = selectionSort;
     };
 
+    document.querySelector("#bubbleSort").onclick = function (event) {
+        startSort = bubbleSort;
+    };
+
     resetGraph(unsort_arr);
+
+    // console.log(bubbleSort(unsort_arr.slice(0)));
 });
 // parseInt
