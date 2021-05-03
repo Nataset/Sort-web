@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
+    var graphSize = 25;
+    var graphHeight = 1.1; //percent
+    var graphWidth = 2.4; //percent
+    var spaceWidth = 0.8; //percent
+
     var unsort_arr = [
         50,
         46,
@@ -29,11 +34,14 @@ document.addEventListener("DOMContentLoaded", function () {
     var selectSort;
     var readyState = 1;
     var finishState = 0;
+    var sumWidth = graphWidth + 2 * spaceWidth;
 
     var createGraph = function (n) {
         for (var i = 1; i <= n; i++) {
-            var left = 4 * (i - 1) + "%";
+            var left = sumWidth * (i - 1) + "%";
             var graph = document.createElement("div");
+            graph.style.width = graphWidth + "%";
+            graph.style.margin = "0px" + spaceWidth + "%";
             graph.className = "graph" + i;
             graph.style.left = left;
             document.querySelector(".content").appendChild(graph);
@@ -41,14 +49,14 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     var setGraphValue = function (i, input_arr) {
-        var graphName = ".graph" + (parseInt(i) + 1);
-        var graphHeight = input_arr[i] * 1.1 + "%";
-        document.querySelector(graphName).style.height = graphHeight;
+        var name = ".graph" + (parseInt(i) + 1);
+        var height = input_arr[i] * graphHeight + "%";
+        document.querySelector(name).style.height = height;
     };
 
     var setGraphColor = function (i, color) {
-        var graphName = ".graph" + (parseInt(i) + 1);
-        document.querySelector(graphName).style.background = color;
+        var name = ".graph" + (parseInt(i) + 1);
+        document.querySelector(name).style.background = color;
     };
 
     var resetGraph = function (input_arr) {
@@ -60,13 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
     var resizeWindow = function () {
         document.querySelector(".content").style.height =
             window.innerHeight - 53 + "px";
-    };
-
-    var swp = function (i, j, input_arr) {
-        var tmp = input_arr[i];
-        input_arr[i] = input_arr[j];
-        input_arr[j] = tmp;
-        return;
     };
 
     var delay = function () {
@@ -247,19 +248,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return input_arr;
     };
 
-    var recurBubbleSort = function (input_arr, n) {
-        if (n === 1) return;
-
-        for (var i = 0; i < input_arr.length - 1; i++) {
-            if (input_arr[i] > input_arr[i + 1]) {
-                var tmp = input_arr[i];
-                input_arr[i] = input_arr[i + 1];
-                input_arr[i + 1] = tmp;
-            }
-        }
-        reBubbleSort(input_arr, n - 1);
-    };
-
     var insertionSort = async function (input_arr) {
         readyState = 0;
         var size = input_arr.length;
@@ -298,31 +286,40 @@ document.addEventListener("DOMContentLoaded", function () {
         finishState = 0;
     };
 
-    document.querySelector("#selectionSort").onclick = function (event) {
-        selectSort = selectionSort;
-    };
+    document.querySelectorAll("#selectionSort").forEach(function (el) {
+        el.onclick = function (event) {
+            selectSort = selectionSort;
+        };
+    });
 
-    document.querySelector("#bubbleSort").onclick = function (event) {
-        selectSort = bubbleSort;
-    };
+    document.querySelectorAll("#bubbleSort").forEach(function (el) {
+        el.onclick = function (event) {
+            selectSort = bubbleSort;
+        };
+    });
 
-    document.querySelector("#insertSort").onclick = function (event) {
-        selectSort = insertionSort;
-    };
+    document.querySelectorAll("#insertSort").forEach(function (el) {
+        el.onclick = function (event) {
+            selectSort = insertionSort;
+        };
+    });
 
-    document.querySelector("#mergeSort").onclick = function (event) {
-        selectSort = mergeSort;
-    };
+    document.querySelectorAll("#mergeSort").forEach(function (el) {
+        el.onclick = function (event) {
+            selectSort = mergeSort;
+        };
+    });
 
-    document.querySelector("#quickSort").onclick = function (event) {
-        selectSort = quickSort;
-    };
-
-    createGraph(25);
-
+    document.querySelectorAll("#quickSort").forEach(function (el) {
+        el.onclick = function (event) {
+            selectSort = quickSort;
+        };
+    });
     resizeWindow();
 
     window.onresize = resizeWindow;
+
+    createGraph(graphSize);
 
     resetGraph(unsort_arr);
 });

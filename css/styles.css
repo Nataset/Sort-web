@@ -37,6 +37,35 @@ html {
 }
 
 @media (max-width: 1100px) {
+    .dropdown-hidden {
+        display: none;
+    }
+
+    li.dropdown {
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: #20222a;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content .button {
+        display: block;
+    }
+
+    .dropdown-content .button:hover {
+        background-color: black;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
 }
 
 .content {
@@ -61,7 +90,7 @@ html {
     border-top: 5px solid #ebebeb;
     border-left: 1px solid #ebebeb;
     border-right: 1px solid #ebebeb;
-    margin: 0px 0.8% 0px 0.8%;
+    margin: 0px 0.8%;
     float: left;
 }
 
