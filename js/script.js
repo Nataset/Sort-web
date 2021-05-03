@@ -118,6 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     var quickSort = async function (input_arr) {
+        readyState = 0;
         var partition = async function (input_arr, left, right) {
             var pivot = input_arr[right];
 
@@ -152,6 +153,8 @@ document.addEventListener("DOMContentLoaded", function () {
             if (input_arr[i] != pivot) {
                 await swap(i, right, input_arr);
             }
+            readyState = 1;
+            finishState = 1;
             return i;
         };
 
