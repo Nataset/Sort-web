@@ -1,24 +1,24 @@
 document.addEventListener("DOMContentLoaded", function () {
     var unsort_arr = [
-        52,
-        34,
-        71,
-        43,
-        64,
-        56,
-        32,
-        20,
-        67,
-        38,
-        28,
-        54,
-        75,
-        20,
-        61,
+        50,
+        46,
+        35,
+        57,
+        35,
+        80,
+        44,
+        19,
+        59,
+        65,
+        58,
+        77,
+        73,
+        14,
+        30,
         25,
-        47,
-        22,
-        15,
+        67,
+        62,
+        43,
     ];
     var selectSort;
     var readyState = 1;
@@ -42,9 +42,9 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     var swp = function (i, j, input_arr) {
-        var tmp = input_arr[0];
-        input_arr[0] = input_arr[1];
-        input_arr[1] = tmp;
+        var tmp = input_arr[i];
+        input_arr[i] = input_arr[j];
+        input_arr[j] = tmp;
         return;
     };
 
@@ -94,42 +94,56 @@ document.addEventListener("DOMContentLoaded", function () {
         return input_arr;
     };
 
-    // var quickSort = function (input_arr) {
-    //     function partition(input_arr, left, right) {
-    //         var pivot = right;
-    //         var i = left;
+    var quickSort = async function (input_arr) {
+        var partition = async function (input_arr, left, right) {
+            var pivot = input_arr[right];
 
-    //         for (var j = left; j < right; j++) {
-    //             if (input_arr[j] <= input_arr[pivot]) {
-    //                 swp(i, j, input_arr);
-    //                 i++;
-    //             }
-    //         }
-    //         swp(i, j, input_arr);
-    //         return i;
-    //     }
+            var i = left;
+            var j = right - 1;
 
-    //     function quickRecur(input_arr, left, right) {
-    //         left = left || 0;
-    //         right = right || input_arr.length - 1;
+            while (i < j) {
+                while (input_arr[i] < pivot) {
+                    setGraphColor(i, "red");
+                    await delay();
+                    setGraphColor(i, "blue");
+                    i++;
+                }
+                while (j > left && input_arr[j] >= pivot) {
+                    setGraphColor(j, "red");
+                    await delay();
+                    setGraphColor(j, "blue");
+                    j--;
+                }
 
-    //         var pivot = partition(input_arr, left, right);
+                if (i < j) {
+                    await swap(i, j, input_arr);
+                    i++;
+                    j--;
+                }
+            }
 
-    //         if (left < pivot - 1) {
-    //             quickRecur(input_arr, left, pivot - 1);
-    //         }
+            if (i === j && input_arr[i] < pivot) {
+                i++;
+            }
 
-    //         if (right > pivot) {
-    //             quickRecur(input_arr, pivot - 1, right);
-    //         }
+            if (input_arr[i] != pivot) {
+                await swap(i, right, input_arr);
+            }
+            return i;
+        };
 
-    //         return array;
-    //     }
+        var quickRecur = async function (input_arr, left, right) {
+            if (left >= right) return;
 
-    //     return quickRecur(input_arr, 0, input_arr.length - 1);
-    // };
+            var pivotPos = await partition(input_arr, left, right);
+            await quickRecur(input_arr, left, pivotPos - 1);
+            await quickRecur(input_arr, pivotPos + 1, right);
+        };
 
-    var mergeSort = function (input_arr) {
+        quickRecur(input_arr, 0, input_arr.length - 1);
+    };
+
+    var mergeSort = async function (input_arr) {
         readyState = 0;
         var l = 0;
         var r = input_arr.length;
@@ -181,7 +195,6 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         var mergeRecur = async function (input_arr, l, r) {
-            console.log(l, r);
             var m = parseInt(l + (r - l) / 2);
             if (l >= r) return;
 
@@ -213,7 +226,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return input_arr;
     };
 
-    var reBubbleSort = function (input_arr, n) {
+    var recurBubbleSort = function (input_arr, n) {
         if (n === 1) return;
 
         for (var i = 0; i < input_arr.length - 1; i++) {
@@ -281,11 +294,8 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     document.querySelector("#quickSort").onclick = function (event) {
-        selectSort = mergeSort;
+        selectSort = quickSort;
     };
 
     resetGraph(unsort_arr);
-
-    // console.log(quickSort(unsort_arr));
 });
-// parseInt
