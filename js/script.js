@@ -1,8 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var graphSize = 25;
+    var graphSize = 25; //size of array
     var graphHeight = 1.1; //percent
     var graphWidth = 2.4; //percent
     var spaceWidth = 0.8; //percent
+    var sortingSpeed = 25; //millisec
 
     var unsort_arr = [
         50,
@@ -72,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var delay = function () {
         return new Promise(function (resolve) {
-            setTimeout(resolve, 50);
+            setTimeout(resolve, sortingSpeed);
         });
     };
 
