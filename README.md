@@ -17,4 +17,4 @@ var sortingSpeed = 25; //millisec
 
 # Contributing
 
-Pull requests are welcome. I would be happy if someone would benefit from my little project.
+Pull requests are welcome. I would be happy if someone would benefit from my little project. :>
