@@ -19,14 +19,30 @@ document.addEventListener("DOMContentLoaded", function () {
         67,
         62,
         43,
+        12,
+        45,
+        50,
+        13,
+        11,
+        52,
     ];
     var selectSort;
     var readyState = 1;
     var finishState = 0;
 
+    var createGraph = function (n) {
+        for (var i = 1; i <= n; i++) {
+            var left = 4 * (i - 1) + "%";
+            var graph = document.createElement("div");
+            graph.className = "graph" + i;
+            graph.style.left = left;
+            document.querySelector(".content").appendChild(graph);
+        }
+    };
+
     var setGraphValue = function (i, input_arr) {
         var graphName = ".graph" + (parseInt(i) + 1);
-        var graphHeight = input_arr[i] * 10 + "px";
+        var graphHeight = input_arr[i] * 1.1 + "%";
         document.querySelector(graphName).style.height = graphHeight;
     };
 
@@ -39,6 +55,11 @@ document.addEventListener("DOMContentLoaded", function () {
         for (var i in input_arr) {
             setGraphValue(i, input_arr);
         }
+    };
+
+    var resizeWindow = function () {
+        document.querySelector(".content").style.height =
+            window.innerHeight - 53 + "px";
     };
 
     var swp = function (i, j, input_arr) {
@@ -296,6 +317,12 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("#quickSort").onclick = function (event) {
         selectSort = quickSort;
     };
+
+    createGraph(25);
+
+    resizeWindow();
+
+    window.onresize = resizeWindow;
 
     resetGraph(unsort_arr);
 });
