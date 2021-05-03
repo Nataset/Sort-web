@@ -1,8 +1,8 @@
-#Sorting-demo-web
+# Sorting-demo-web
 
 Sorting-demo-web is a HTML website for demonstration How Sorting work
 
-#Parameter
+# Parameter
 
 All Parameter is in top section of js/script.js file
 
@@ -15,6 +15,6 @@ var spaceWidth = 0.8; //percent
 var sortingSpeed = 25; //millisec
 ```
 
-#Contributing
+# Contributing
 
-Pull requests are welcome. I would be happy if someone would benefit from my little project.
+Pull requests are welcome. I would be happy if someone would benefit from my little project. :>
