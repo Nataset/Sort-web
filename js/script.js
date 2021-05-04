@@ -108,7 +108,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             if (min != i) {
-                console.log("TEST");
                 await swap(i, min, input_arr);
             }
         }
@@ -153,8 +152,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (input_arr[i] != pivot) {
                 await swap(i, right, input_arr);
             }
-            readyState = 1;
-            finishState = 1;
             return i;
         };
 
@@ -166,7 +163,10 @@ document.addEventListener("DOMContentLoaded", function () {
             await quickRecur(input_arr, pivotPos + 1, right);
         };
 
-        quickRecur(input_arr, 0, input_arr.length - 1);
+        await quickRecur(input_arr, 0, input_arr.length - 1);
+        readyState = 1;
+        finishState = 1;
+        return input_arr;
     };
 
     var mergeSort = async function (input_arr) {
@@ -229,14 +229,13 @@ document.addEventListener("DOMContentLoaded", function () {
             await merge(input_arr, l, m, r);
         };
 
-        mergeRecur(input_arr, l, r);
+        await mergeRecur(input_arr, l, r);
         readyState = 1;
         finishState = 1;
         return input_arr;
     };
 
     var bubbleSort = async function (input_arr) {
-        readyState = 0;
         var check;
         do {
             check = 0;
@@ -282,15 +281,23 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     document.querySelector("#start").onclick = function (event) {
-        if (readyState && !finishState) selectSort(unsort_arr.slice(0));
+        try {
+            if (readyState && !finishState) selectSort(unsort_arr.slice(0));
+        } catch (err) {
+            if (err instanceof TypeError)
+                alert("Please select a sorting algorithm first.");
+            else console.error(err.message);
+        }
     };
 
     document.querySelector("#reset").onclick = function (event) {
-        if (readyState) resetGraph(unsort_arr.slice(0));
-        finishState = 0;
+        if (readyState) {
+            resetGraph(unsort_arr.slice(0));
+            finishState = 0;
+        }
     };
 
-    document.querySelectorAll("#selectionSort").forEach(function (el) {
+    document.querySelectorAll("#selectSort").forEach(function (el) {
         el.onclick = function (event) {
             selectSort = selectionSort;
         };
