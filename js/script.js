@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var resizeWindow = function () {
         document.querySelector(".content").style.height =
-            window.innerHeight - 53 + "px";
+            window.innerHeight - 36.5 + "px";
     };
 
     var delay = function () {
@@ -236,6 +236,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     var bubbleSort = async function (input_arr) {
+        readyState = 0;
         var check;
         do {
             check = 0;
